@@ -26,12 +26,24 @@
             android:id="@+id/notInternetIV"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:contentDescription="@string/no_internet_txt"
+            android:visibility="gone"
             app:layout_constraintBottom_toTopOf="@+id/marsRecycler"
             app:layout_constraintEnd_toStartOf="@+id/marsRecycler"
             app:layout_constraintHorizontal_bias="0.5"
-            android:contentDescription="@string/no_internet_txt"
             app:layout_constraintStart_toEndOf="@+id/marsRecycler"
             app:layout_constraintTop_toBottomOf="@+id/marsRecycler"
             app:srcCompat="@drawable/ic_cloud_off" />
+
+        <TextView
+            android:id="@+id/requestResponse"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintBottom_toTopOf="@+id/marsRecycler"
+            app:layout_constraintEnd_toStartOf="@+id/marsRecycler"
+            app:layout_constraintHorizontal_bias="0.5"
+            android:text="@{viewModel.response}"
+            app:layout_constraintStart_toEndOf="@+id/marsRecycler"
+            app:layout_constraintTop_toBottomOf="@+id/marsRecycler" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>
