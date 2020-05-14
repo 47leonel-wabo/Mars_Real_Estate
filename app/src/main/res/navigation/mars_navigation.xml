@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/mars_navigation"
+    app:startDestination="@id/mars">
+
+    <fragment
+        android:id="@+id/mars"
+        android:name="com.aiwamob.marsrealestate.ui.home.Mars"
+        tools:layout="@layout/fragment_mars"
+        android:label="Mars" >
+        <action
+            android:id="@+id/action_mars_to_detail"
+            app:destination="@id/detail"
+            app:popUpTo="@id/mars" />
+    </fragment>
+    <fragment
+        android:id="@+id/detail"
+        android:name="com.aiwamob.marsrealestate.ui.detail.Detail"
+        tools:layout="@layout/fragment_detail"
+        android:label="Detail" />
+</navigation>
