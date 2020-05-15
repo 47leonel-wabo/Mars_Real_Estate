@@ -4,11 +4,9 @@ import android.view.View
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import com.aiwamob.marsrealestate.model.MarsProperty
+import androidx.lifecycle.viewModelScope
 import com.aiwamob.marsrealestate.network.MarsApi
-import retrofit2.Call
-import retrofit2.Callback
-import retrofit2.Response
+import kotlinx.coroutines.*
 
 class MarsViewModel: ViewModel() {
 
@@ -22,23 +20,25 @@ class MarsViewModel: ViewModel() {
 
     init {
         _isNotInternet.value = false
-        getMarsRealEstateProperties()
+
+        viewModelScope.launch {
+            getMarsRealEstateProperties()
+        }
+
     }
 
-    private fun getMarsRealEstateProperties() {
+    private suspend fun getMarsRealEstateProperties() {
 
-        MarsApi.retrofitService.getProperties().enqueue(object : Callback<List<MarsProperty>>{
-            override fun onFailure(call: Call<List<MarsProperty>>, t: Throwable) {
-                _response.value = "Failure ${t.message}"
-                _isNotInternet.value = true
-            }
-
-            override fun onResponse(call: Call<List<MarsProperty>>, response: Response<List<MarsProperty>>) {
-                _response.value = "Success ${response.body()?.size} Mars elements"
-            }
-
-        })
-        _response.value = "Fetching data to internet..."
+        val deferredList = withContext(Dispatchers.Main){
+            MarsApi.retrofitService.getPropertiesAsync()
+        }
+        val listResult = deferredList.await()
+        if (listResult.isNotEmpty()){
+            _response.value = "Success ${listResult.size} Mars elements"
+        }else{
+            _response.value = "Fail to load data or no data!"
+            _isNotInternet.value = true
+        }
     }
 
     fun imageVisible(boolean: Boolean): Int{
