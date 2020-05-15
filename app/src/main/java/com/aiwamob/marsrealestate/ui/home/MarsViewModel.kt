@@ -33,12 +33,19 @@ class MarsViewModel: ViewModel() {
             MarsApi.retrofitService.getPropertiesAsync()
         }
         val listResult = deferredList.await()
-        if (listResult.isNotEmpty()){
-            _response.value = "Success ${listResult.size} Mars elements"
-        }else{
-            _response.value = "Fail to load data or no data!"
+        val error = deferredList.getCompletionExceptionOrNull()?.cause
+        if (error != null) {
+            _response.value = "Fail: $error"
             _isNotInternet.value = true
+        }else{
+            if (listResult.isNotEmpty()){
+                _response.value = "Success ${listResult.size} Mars elements"
+            }else{
+                _response.value = "Fail to load data or no data!"
+                _isNotInternet.value = true
+            }
         }
+
     }
 
     fun imageVisible(boolean: Boolean): Int{
