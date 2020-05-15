@@ -1,6 +1,5 @@
 package com.aiwamob.marsrealestate.ui.home
 
-import android.os.Handler
 import android.view.View
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
