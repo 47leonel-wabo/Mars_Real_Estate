@@ -6,8 +6,9 @@
     <string name="no_internet_txt">No Internet</string>
     <string name="mars_picture">Mars picture</string>
     <string name="type_rent">Rent</string>
-    <string name="type_sell">Sell</string>
+    <string name="type_sell">Sale</string>
     <string name="display_type">For %s</string>
     <string name="display_price_monthly_rental">$%, .0f/month</string>
     <string name="display_price">$%, .0f/month</string>
+    <string name="all_txt">All</string>
 </resources>
