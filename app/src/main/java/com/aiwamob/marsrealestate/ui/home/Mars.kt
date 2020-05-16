@@ -10,6 +10,7 @@ import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.ViewModelProvider
 import com.aiwamob.marsrealestate.R
 import com.aiwamob.marsrealestate.databinding.FragmentMarsBinding
+import com.aiwamob.marsrealestate.uitility.MarsPhotoGridAdapter
 
 /**
  * A simple [Fragment] subclass.
@@ -27,9 +28,10 @@ class Mars : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         binding = DataBindingUtil.inflate(inflater, R.layout.fragment_mars, container, false)
+        binding.lifecycleOwner = this
         binding.apply {
-            lifecycleOwner = this@Mars
             viewModel = marsViewModel
+            marsRecycler.adapter = MarsPhotoGridAdapter()
         }
         setHasOptionsMenu(true)
 

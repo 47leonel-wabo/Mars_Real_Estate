@@ -19,9 +19,9 @@ class MarsViewModel: ViewModel() {
     val isNotInternet: LiveData<Boolean>
         get() = _isNotInternet
 
-    private val _singleProperty = MutableLiveData<MarsProperty>()
-    val singleProperty: LiveData<MarsProperty>
-        get() = _singleProperty
+    private val _properties = MutableLiveData<List<MarsProperty>>()
+    val properties: LiveData<List<MarsProperty>>
+        get() = _properties
 
     init {
         _isNotInternet.value = false
@@ -34,22 +34,17 @@ class MarsViewModel: ViewModel() {
 
     private suspend fun getMarsRealEstateProperties() {
 
-        val deferredList = withContext(Dispatchers.Main){
-            MarsApi.retrofitService.getPropertiesAsync()
-        }
-        val listResult = deferredList.await()
-        val error = deferredList.getCompletionExceptionOrNull()?.cause
-        if (error != null) {
-            _response.value = "Fail: $error"
-            _isNotInternet.value = true
-        }else{
-            if (listResult.isNotEmpty()){
-                _singleProperty.value = listResult[0]
-                _response.value = "Success ${listResult.size} Mars elements"
-            }else{
-                _response.value = "Fail to load data or no data!"
-                _isNotInternet.value = true
+        try {
+            val deferredList = withContext(Dispatchers.Main){
+                MarsApi.retrofitService.getPropertiesAsync()
             }
+            val listResult = deferredList.await()
+            _response.value = "Success ${listResult.size} Mars elements"
+            if (listResult.isNotEmpty()){
+                _properties.value = listResult
+            }
+        }catch (e: Exception){
+            _isNotInternet.value = true
         }
 
     }

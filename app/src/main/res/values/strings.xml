@@ -4,4 +4,5 @@
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="no_internet_txt">No Internet</string>
+    <string name="mars_picture">Mars picture</string>
 </resources>
