@@ -16,7 +16,7 @@
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:padding="16dp">
+            android:padding="8dp">
 
             <ImageView
                 android:id="@+id/marsImage"
@@ -36,7 +36,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="8dp"
                 tools:text="Image Sell Status"
-                android:text="@{viewModel.selectedProperty.type}"
+                android:text="@{viewModel.displayPropertyType}"
                 android:textColor="@android:color/black"
                 android:textSize="24sp"
                 app:layout_constraintStart_toStartOf="@+id/marsImage"
@@ -47,7 +47,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="8dp"
-                android:text="@{String.valueOf(viewModel.selectedProperty.price)}"
+                android:text="@{viewModel.displayPropertyPrice}"
                 tools:text="Price"
                 android:textColor="@android:color/black"
                 android:textSize="18sp"
