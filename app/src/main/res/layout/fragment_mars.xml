@@ -28,11 +28,10 @@
 
         <ImageView
             android:id="@+id/notInternetIV"
-            isNotInternetConnection="@{viewModel.isNotInternet}"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:contentDescription="@string/no_internet_txt"
-            android:visibility="@{viewModel.imageVisible(viewModel.isNotInternet)}"
+            marsApiStatus="@{viewModel.status}"
             app:layout_constraintBottom_toTopOf="@+id/marsRecycler"
             app:layout_constraintEnd_toStartOf="@+id/marsRecycler"
             app:layout_constraintHorizontal_bias="0.5"
