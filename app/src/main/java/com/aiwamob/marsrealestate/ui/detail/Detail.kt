@@ -5,10 +5,9 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.TextView
-import androidx.databinding.DataBindingUtil
-import com.aiwamob.marsrealestate.R
+import androidx.lifecycle.ViewModelProvider
 import com.aiwamob.marsrealestate.databinding.FragmentDetailBinding
+import com.aiwamob.marsrealestate.model.MarsProperty
 
 /**
  * A simple [Fragment] subclass.
@@ -21,8 +20,19 @@ class Detail : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
+        val application = requireNotNull(activity).application
+        binding = FragmentDetailBinding.inflate(inflater)
+        binding.lifecycleOwner = this
 
-        binding = DataBindingUtil.inflate(inflater, R.layout.fragment_detail, container, false)
+        val arg = arguments?.let {DetailArgs.fromBundle(it)}
+        val marsProperty: MarsProperty = arg!!.selectedMarsPrp
+        val viewModelFactory = DetailViewModelFactory(marsProperty, application)
+        val detailViewModel = ViewModelProvider(this, viewModelFactory).get(DetailViewModel::class.java)
+
+        binding.apply {
+            viewModel = detailViewModel
+        }
+
         return binding.root
     }
 

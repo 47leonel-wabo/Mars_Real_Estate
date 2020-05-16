@@ -19,5 +19,9 @@
         android:id="@+id/detail"
         android:name="com.aiwamob.marsrealestate.ui.detail.Detail"
         tools:layout="@layout/fragment_detail"
-        android:label="Detail" />
+        android:label="Detail" >
+        <argument
+            android:name="selectedMarsPrp"
+            app:argType="com.aiwamob.marsrealestate.model.MarsProperty" />
+    </fragment>
 </navigation>

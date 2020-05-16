@@ -10,7 +10,7 @@ import com.aiwamob.marsrealestate.R
 import com.aiwamob.marsrealestate.databinding.GridviewItemBinding
 import com.aiwamob.marsrealestate.model.MarsProperty
 
-class MarsPhotoGridAdapter: ListAdapter<MarsProperty, MarsPhotoGridAdapter.MarsPropertyViewHolder>(MarsDiffCallBack) {
+class MarsPhotoGridAdapter(private val onClickListener: OnClickListener): ListAdapter<MarsProperty, MarsPhotoGridAdapter.MarsPropertyViewHolder>(MarsDiffCallBack) {
 
     //private lateinit var gridviewItemBinding: GridviewItemBinding
 
@@ -41,6 +41,12 @@ class MarsPhotoGridAdapter: ListAdapter<MarsProperty, MarsPhotoGridAdapter.MarsP
 
     override fun onBindViewHolder(holder: MarsPropertyViewHolder, position: Int) {
         val marsProperty = getItem(position)
+        holder.itemView.setOnClickListener {
+            onClickListener.onClick(marsProperty)
+        }
         holder.bind(marsProperty)
     }
+}
+class OnClickListener(val clickListener: (marsProperty: MarsProperty) -> Unit){
+    fun onClick(marsProperty: MarsProperty) = clickListener(marsProperty)
 }
