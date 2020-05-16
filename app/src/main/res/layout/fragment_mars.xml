@@ -41,7 +41,7 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
             android:layout_marginEnd="16dp"
-            android:text="@{viewModel.response}"
+            android:text="@{viewModel.singleProperty.imgSrcUrl}"
             android:textAlignment="center"
             android:textColor="@android:color/black"
             app:layout_constraintBottom_toTopOf="@+id/marsRecycler"
@@ -49,5 +49,16 @@
             app:layout_constraintHorizontal_bias="0.5"
             app:layout_constraintStart_toEndOf="@+id/marsRecycler"
             app:layout_constraintTop_toBottomOf="@+id/marsRecycler" />
+
+        <ImageView
+            android:id="@+id/imageView"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            imageUrl="@{viewModel.singleProperty.imgSrcUrl}"
+            app:layout_constraintBottom_toTopOf="@+id/marsRecycler"
+            app:layout_constraintEnd_toStartOf="@+id/marsRecycler"
+            app:layout_constraintStart_toEndOf="@+id/marsRecycler"
+            app:layout_constraintTop_toBottomOf="@+id/marsRecycler"
+            tools:srcCompat="@drawable/ic_cloud_off" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

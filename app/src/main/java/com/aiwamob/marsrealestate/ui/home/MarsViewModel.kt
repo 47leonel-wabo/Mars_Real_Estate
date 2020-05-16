@@ -5,6 +5,7 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.aiwamob.marsrealestate.model.MarsProperty
 import com.aiwamob.marsrealestate.network.MarsApi
 import kotlinx.coroutines.*
 
@@ -17,6 +18,10 @@ class MarsViewModel: ViewModel() {
     private val _isNotInternet = MutableLiveData<Boolean>()
     val isNotInternet: LiveData<Boolean>
         get() = _isNotInternet
+
+    private val _singleProperty = MutableLiveData<MarsProperty>()
+    val singleProperty: LiveData<MarsProperty>
+        get() = _singleProperty
 
     init {
         _isNotInternet.value = false
@@ -39,6 +44,7 @@ class MarsViewModel: ViewModel() {
             _isNotInternet.value = true
         }else{
             if (listResult.isNotEmpty()){
+                _singleProperty.value = listResult[0]
                 _response.value = "Success ${listResult.size} Mars elements"
             }else{
                 _response.value = "Fail to load data or no data!"
