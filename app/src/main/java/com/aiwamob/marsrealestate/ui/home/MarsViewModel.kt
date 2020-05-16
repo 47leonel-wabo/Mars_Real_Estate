@@ -6,6 +6,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.aiwamob.marsrealestate.model.MarsProperty
 import com.aiwamob.marsrealestate.network.MarsApi
+import com.aiwamob.marsrealestate.network.MarsApiFilter
 import kotlinx.coroutines.*
 
 enum class MarsApiStatus{LOADING, ERROR, DONE}
@@ -27,16 +28,16 @@ class MarsViewModel: ViewModel() {
     init {
 
         viewModelScope.launch {
-            getMarsRealEstateProperties()
+            getMarsRealEstateProperties(MarsApiFilter.SHOW_ALL)
         }
 
     }
 
-    private suspend fun getMarsRealEstateProperties() {
+    private suspend fun getMarsRealEstateProperties(filter: MarsApiFilter) {
 
         try {
             val deferredList = withContext(Dispatchers.Main){
-                MarsApi.retrofitService.getPropertiesAsync()
+                MarsApi.retrofitService.getPropertiesAsync(filter.value)
             }
             _status.value = MarsApiStatus.LOADING
             val listResult = deferredList.await()
@@ -59,5 +60,11 @@ class MarsViewModel: ViewModel() {
 
     fun displayPropertyDetailComplete(){
         _selectedProp.value = null
+    }
+
+     fun updateProperties(filter: MarsApiFilter){
+         viewModelScope.launch {
+             getMarsRealEstateProperties(filter)
+         }
     }
 }

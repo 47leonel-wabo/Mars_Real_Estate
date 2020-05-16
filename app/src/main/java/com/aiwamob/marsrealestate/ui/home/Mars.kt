@@ -8,6 +8,7 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import com.aiwamob.marsrealestate.R
 import com.aiwamob.marsrealestate.databinding.FragmentMarsBinding
+import com.aiwamob.marsrealestate.network.MarsApiFilter
 import com.aiwamob.marsrealestate.uitility.MarsPhotoGridAdapter
 import com.aiwamob.marsrealestate.uitility.OnClickListener
 
@@ -54,6 +55,13 @@ class Mars : Fragment() {
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        return super.onOptionsItemSelected(item)
+        marsViewModel.updateProperties(
+            when(item.itemId){
+                R.id.rentItems -> MarsApiFilter.SHOW_RENT
+                R.id.saleItems -> MarsApiFilter.SHOW_BUY
+                else -> MarsApiFilter.SHOW_ALL
+            }
+        )
+        return true
     }
 }
